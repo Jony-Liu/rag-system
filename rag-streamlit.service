@@ -1,0 +1,22 @@
+[Unit]
+Description=RAG Streamlit Application Service
+After=network.target
+
+[Service]
+Type=simple
+User=%i
+Group=%i
+WorkingDirectory=/path/to/RAG-cy
+Environment="PATH=/usr/local/bin:/usr/bin:/bin"
+ExecStart=/usr/bin/python3.11 -m streamlit run app_streamlit.py --server.port 8501 --server.headless true
+Restart=always
+RestartSec=10
+StandardOutput=append:/path/to/RAG-cy/.log/streamlit_service.log
+StandardError=append:/path/to/RAG-cy/.log/streamlit_service_error.log
+
+# 安全设置（可选）
+# NoNewPrivileges=true
+# PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target
